@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<title>批量发布</title>
+<script type="text/javascript" src="js/jQuery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	$("button").click(function(){
+		var cars = $("#cars").val();
+		if(cars != '' && cars.length > 1){
+			$.ajax({
+				type:"get",
+				url: "batchParse/batchParse.json",
+				dataType: "json",
+				data:{cars:cars},
+				success: function(data){
+					if(data.success){
+						$('#content').empty();
+						$.each(data.datas, function(index, bean) {
+							if(bean.canParse) {
+								var remarks = bean.remarks;
+								$.each(bean.categorys, function(ind, category) {
+									var add = "";
+								    switch (category.modeType) {
+								    case 1:
+								    	add = "国产";
+							            break;
+								    case 2:
+							        	add = "中规";
+							            break;
+								    case 3:
+							        	add = "中规";
+							            break;
+							        case 4:
+							        	add = "美版";
+							            break;
+							        case 6:
+							        	add = "中东";
+							            break;
+							        case 8:
+							        	add = "加版";
+							            break;
+							        case 10:
+							        	add = "欧版";
+							            break;
+							        case 12:
+							        	add = "墨版";
+							            break;
+							        default:
+							            break;
+							        }
+								    var market = "";
+								    if(category.marketBean.type == 0) {
+								    	if(category.marketBean.price > 0){
+								    		market = "上" + category.marketBean.price;
+								    	}else{
+								    		market = "下" + Math.abs(category.marketBean.price);
+								    	}
+								    }else if(category.marketBean.type == 1) {
+								    	if(category.marketBean.dot > 0){
+								    		market = "上" + category.marketBean.dot + "点";
+								    	}else{
+								    		market = "下" + Math.abs(category.marketBean.dot) + "点";
+								    	}
+								    }
+								    var categoryRemarks = category.remarks;
+								    if(remarks) {
+								    	categoryRemarks = categoryRemarks.concat(remarks);
+								    }
+								    var allRemark = categoryRemarks.join(",");
+								    var carLocation = "";
+								    if(category.carLocation) {
+								    	carLocation = category.carLocation;
+								    }
+									$('#content').append('<tr><td>' 
+											+ add + ' '
+											+ category.brand + ' '
+											+ category.factoryName + ' '
+											+ category.series + ' '
+											+ category.category + ' '
+											+ category.officialQuote + '/' + market + ' '
+											+ category.outerColor + '/' + category.innerColor + ' '
+											+ carLocation + ' '
+											+ '<font color="gray">' + allRemark + '</font>'
+											+ '</td></tr>');
+								});
+							}else {
+								$('#content').append('<tr><td><font color="red">' + bean.carInfo + '（' + bean.reason + '）</font></td></tr>');
+							}
+						});
+					}else{
+						alert(data.errMsg);
+					}
+				}
+			});
+		}else{
+			$('#content').empty();
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div style="text-align: center;"><button>提交</button></div>
+<div style="text-align: center;margin-top: 5px;"><textarea rows="25" cols="45" id="cars"></textarea></div>
+<table align="center" id="content">
+	
+</table>
+</body>
+</html>

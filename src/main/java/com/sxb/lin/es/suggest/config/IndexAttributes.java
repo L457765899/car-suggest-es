@@ -31,4 +31,9 @@ public class IndexAttributes {
      * 车型+颜色索引
      */
     public final static String SXB_CATEGORY_COLOR = "sxb_category_color";
+
+    /**
+     * 销车批量解析-车型索引
+     */
+    public final static String SXB_PARSE_CATEGORY = "sxb_parse_category";
 }
