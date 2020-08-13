@@ -29,7 +29,7 @@
     from GEOGRAPHIC
     where TYPE = #{type}
     <!-- 去掉4个直辖市 -->
-    <if test="type == 4">
+    <if test="_parameter == 4">
       and NAME != '重庆'
       and NAME != '天津'
       and NAME != '上海'

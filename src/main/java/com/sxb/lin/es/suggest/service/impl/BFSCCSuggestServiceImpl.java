@@ -186,13 +186,14 @@ public class BFSCCSuggestServiceImpl extends AbstractSuggestServiceImpl implemen
         List<Map<String, Object>> categoryList = carcategoryMapper.getAllForIndex();
         List<Car> carList = new ArrayList<>();
         for (Map<String, Object> categoryMap : categoryList) {
-            String brand = (String) categoryMap.get("brand");
-            String factoryName = (String) categoryMap.get("factoryName");
-            String series = (String) categoryMap.get("series");
-            String category = (String) categoryMap.get("category");
-            Integer officialQuote = (Integer) categoryMap.get("officialQuote");
-            int modeType = (int) categoryMap.get("modeType");
-            String outColor = (String) categoryMap.get("outColor");
+            String brand = (String) categoryMap.get("BRAND");
+            String factoryName = (String) categoryMap.get("FACTORYNAME");
+            String series = (String) categoryMap.get("SERIES");
+            String category = (String) categoryMap.get("CATEGORY");
+            Integer officialQuote = (Integer) categoryMap.get("OFFICIALQUOTE");
+            int modeType = (int) categoryMap.get("MODETYPE");
+            String outColor = (String) categoryMap.get("OUTCOLOR");
+
             if (StringUtils.hasLength(outColor)) {
                 String[] colors = outColor.split(",");
                 for (String color : colors) {

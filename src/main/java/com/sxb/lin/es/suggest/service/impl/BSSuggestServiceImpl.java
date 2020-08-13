@@ -414,7 +414,7 @@ public class BSSuggestServiceImpl extends AbstractSuggestServiceImpl implements 
             logger.info(IndexAttributes.SXB_BRAND + "索引" + brandRequest.numberOfActions() + "条数据");
         }
 
-    	//车系
+        //车系
         List<Map<String, Object>> list = carsriesMapper.getAllForIndex();
         int len = list.size();
         int pageCount = (len - 1) / 1000 + 1;
@@ -426,7 +426,7 @@ public class BSSuggestServiceImpl extends AbstractSuggestServiceImpl implements 
         List<Map<String, Object>> seriesAlias = new ArrayList<>();
         for (int i = 1; i <= len; i++) {
             Map<String, Object> seriesMap = list.get(i - 1);
-            Integer seriesId = (Integer) seriesMap.get("id");
+            Integer seriesId = (Integer) seriesMap.get("ID");
             IndexRequest indexRequest = new IndexRequest(IndexAttributes.SXB_SERIES);
             indexRequest.id(seriesId.toString());
             indexRequest.source(this.getSource(seriesMap, seriesAlias));
@@ -463,10 +463,11 @@ public class BSSuggestServiceImpl extends AbstractSuggestServiceImpl implements 
     }
 
     private Map<String, Object> getSource(Map<String, Object> seriesMap, List<Map<String, Object>> seriesAlias) throws Exception {
-        String brand = (String) seriesMap.get("brand");
-        String factoryName = (String) seriesMap.get("factoryName");
-        String series = (String) seriesMap.get("series");
-        Integer modeType = (Integer) seriesMap.get("modeType");
+        String brand = (String) seriesMap.get("BRAND");
+        String factoryName = (String) seriesMap.get("FACTORYNAME");
+        String series = (String) seriesMap.get("SERIES");
+        Integer modeType = (Integer) seriesMap.get("MODETYPE");
+
         Map<String, Object> source = new HashMap<>();
         source.put("brand", brand);
         source.put("factoryName", factoryName);
@@ -489,17 +490,6 @@ public class BSSuggestServiceImpl extends AbstractSuggestServiceImpl implements 
                 seriesName.put("alias", aliase);
                 seriesNames.add(seriesName);
             }
-
-            /*if(brand.equals("马自达")) {
-                Pattern p = Pattern.compile("([a-zA-Z]+-[0-9]+)");
-                Matcher m = p.matcher(series);
-                while(m.find()){
-                    String aliase = m.group(1).replace("-", "");
-                    Map<String, Object> seriesName = new HashMap<>();
-                    seriesName.put("alias", aliase);
-                    seriesNames.add(seriesName);
-                }
-            }*/
         }
 
         if(brand.equals("宝马")) {

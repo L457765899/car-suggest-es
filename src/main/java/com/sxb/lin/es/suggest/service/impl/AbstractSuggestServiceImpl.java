@@ -466,15 +466,37 @@ public abstract class AbstractSuggestServiceImpl implements SuggestService {
     }
     
     /**
-     * 缩减车型
+     * 缩减车型，因为默认的名字太长
      * @param category
      * @return
      */
     protected String reduceCategory(int index, String category) {
-    	if(index > DEFAULT_DATAS_SIZE) {
-    		return category;
-    	}
-    	//这里可以把车型缩短，因为默认的名字太长
-    	return category;
+        if(index > DEFAULT_DATAS_SIZE) {
+            return category;
+        }
+        String reduceCategory = this.reduceCategory(category);
+        if (reduceCategory.length() > 25) {
+            reduceCategory = reduceCategory.substring(0, 25);
+        }
+        return reduceCategory;
+    }
+
+    private String reduceCategory(String category) {
+        Pattern p = Pattern.compile("^\\d\\d(\\d\\d款).*");
+        Matcher m = p.matcher(category);
+        if(m.matches()){
+            String group = m.group(1);
+            category = category.replaceAll("\\d\\d\\d\\d款", group);
+        }
+        category = category.replace("年型", "").replace("型", "")
+                .replace("TFSI", "").replace("tfsi", "")
+                .replace("TDI", "").replace("tdi", "")
+                .replace("TSI", "").replace("tsi", "")
+                .replace("套装", "").replace("设计", "")
+                .replace("EcoBoost", "").replace("版", "")
+                .replace("quattro", "四驱").replace("xDrive", "四驱")
+                .replace("Gran Coupe", "四门").replace("4MATIC", "四驱");
+
+        return category;
     }
 }

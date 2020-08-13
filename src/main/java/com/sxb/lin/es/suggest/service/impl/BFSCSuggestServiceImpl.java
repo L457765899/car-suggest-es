@@ -248,7 +248,7 @@ public class BFSCSuggestServiceImpl extends AbstractSuggestServiceImpl implement
         }
         for (int i = 1; i <= len; i++) {
             Map<String, Object> categoryMap = categoryList.get(i - 1);
-            String categoryId = categoryMap.get("id").toString();
+            String categoryId = categoryMap.get("ID").toString();
             IndexRequest indexRequest = new IndexRequest(IndexAttributes.SXB_CATEGORY);
             indexRequest.id(categoryId);
             indexRequest.source(this.getSource(categoryMap));
@@ -270,12 +270,13 @@ public class BFSCSuggestServiceImpl extends AbstractSuggestServiceImpl implement
 
     private Map<String, Object> getSource(Map<String, Object> categoryMap) {
 
-        String brand = (String) categoryMap.get("brand");
-        String factoryName = (String) categoryMap.get("factoryName");
-        String series = (String) categoryMap.get("series");
-        String category = (String) categoryMap.get("category");
-        Integer officialQuote = (Integer) categoryMap.get("officialQuote");
-        int modeType = (int) categoryMap.get("modeType");
+        String brand = (String) categoryMap.get("BRAND");
+        String factoryName = (String) categoryMap.get("FACTORYNAME");
+        String series = (String) categoryMap.get("SERIES");
+        String category = (String) categoryMap.get("CATEGORY");
+        Integer officialQuote = (Integer) categoryMap.get("OFFICIALQUOTE");
+        int modeType = (int) categoryMap.get("MODETYPE");
+
         Map<String, Object> source = new HashMap<>();
         source.put("brand", brand);
         source.put("factoryName", factoryName);

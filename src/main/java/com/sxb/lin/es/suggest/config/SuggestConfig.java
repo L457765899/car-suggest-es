@@ -6,8 +6,10 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tk.mybatis.spring.annotation.MapperScan;
 
 @Configuration
+@MapperScan("com.sxb.lin.es.suggest.db.dao")
 public class SuggestConfig {
 
     @Value("${sxb.elasticsearch.host}")
