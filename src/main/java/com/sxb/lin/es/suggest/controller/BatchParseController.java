@@ -27,7 +27,7 @@ public class BatchParseController {
     }
 
     /**
-     * 解析批量发布的数据
+     * 车型术语批量解析
      * @param cars
      * @return
      * @throws Exception
