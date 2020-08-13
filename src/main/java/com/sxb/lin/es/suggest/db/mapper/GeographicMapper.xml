@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxb.lin.es.suggest.db.dao.GeographicMapper">
+  <resultMap id="BaseResultMap" type="com.sxb.lin.es.suggest.db.entity.Geographic">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="UNID" jdbcType="INTEGER" property="unid" />
+    <result column="PUNID" jdbcType="INTEGER" property="punid" />
+    <result column="PATHUNID" jdbcType="VARCHAR" property="pathunid" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="RANK" jdbcType="INTEGER" property="rank" />
+    <result column="PATHTEXT" jdbcType="VARCHAR" property="pathtext" />
+    <result column="ENAME" jdbcType="VARCHAR" property="ename" />
+    <result column="CREATEDATE" jdbcType="BIGINT" property="createdate" />
+    <result column="LONGITUDE" jdbcType="DECIMAL" property="longitude" />
+    <result column="LATITUDE" jdbcType="DECIMAL" property="latitude" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    UNID, PUNID, PATHUNID, TYPE, NAME, RANK, PATHTEXT, ENAME, CREATEDATE, LONGITUDE, LATITUDE
+  </sql>
+
+  <select id="getListByType" parameterType="int" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from GEOGRAPHIC
+    where TYPE = #{type}
+    <!-- 去掉4个直辖市 -->
+    <if test="type == 4">
+      and NAME != '重庆'
+      and NAME != '天津'
+      and NAME != '上海'
+      and NAME != '北京'
+    </if>
+  </select>
+
+
+</mapper>

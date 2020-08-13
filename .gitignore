@@ -1,0 +1,8 @@
+/target/
+/.idea/
+car-suggest-es.iml
+myh2.trace.db
+brand.sql
+carsries.sql
+carcategory.sql
+geographic.sql

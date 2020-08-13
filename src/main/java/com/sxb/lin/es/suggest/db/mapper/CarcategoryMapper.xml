@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxb.lin.es.suggest.db.dao.CarcategoryMapper">
+  <resultMap id="BaseResultMap" type="com.sxb.lin.es.suggest.db.entity.Carcategory">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="OFFICIALQUOTE" jdbcType="INTEGER" property="officialquote" />
+    <result column="AUTO_SERIES_ID" jdbcType="INTEGER" property="autoSeriesId" />
+    <result column="AUTO_CATEGORY_ID" jdbcType="INTEGER" property="autoCategoryId" />
+    <result column="CARSRIES_ID" jdbcType="INTEGER" property="carsriesId" />
+    <result column="STOP_SELL" jdbcType="INTEGER" property="stopSell" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="OUTER_COLOR" jdbcType="VARCHAR" property="outerColor" />
+    <result column="MODE_TYPE" jdbcType="INTEGER" property="modeType" />
+    <result column="INNER_COLOR" jdbcType="VARCHAR" property="innerColor" />
+  </resultMap>
+
+
+  <select id="getOfficialQuoteBySeriesId" parameterType="int" resultType="int">
+    select
+      OFFICIALQUOTE officialQuote
+    from CARCATEGORY
+    where CARSRIES_ID = #{id}
+    order by OFFICIALQUOTE
+  </select>
+
+  <select id="selectColorById" parameterType="int" resultType="java.lang.String">
+    select OUTER_COLOR from CARCATEGORY where ID = #{id}
+  </select>
+
+  <select id="getAllForIndex" resultType="map">
+    select
+      cc.ID id,
+      b.NAME brand,
+      cs.FACTORY_NAME factoryName,
+      cs.NAME series,
+      cc.NAME category,
+      cc.OFFICIALQUOTE officialQuote,
+      cc.OUTER_COLOR outColor,
+      cs.MODE_TYPE modeType
+    from BRAND b
+    INNER JOIN CARSRIES cs on b.ID = cs.BRAND_ID
+    INNER JOIN CARCATEGORY cc on cs.ID = cc.CARSRIES_ID
+    where cs.MODE_TYPE != 3
+    ORDER BY b.ID
+  </select>
+
+</mapper>

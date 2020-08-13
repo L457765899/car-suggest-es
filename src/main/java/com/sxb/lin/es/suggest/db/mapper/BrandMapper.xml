@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxb.lin.es.suggest.db.dao.BrandMapper">
+  <resultMap id="BaseResultMap" type="com.sxb.lin.es.suggest.db.entity.Brand">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="AUTO_BRAND_ID" jdbcType="INTEGER" property="autoBrandId" />
+    <result column="PY" jdbcType="CHAR" property="py" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="IMAGE" jdbcType="VARCHAR" property="image" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="SUPPORTINPUT" jdbcType="VARCHAR" property="supportinput" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    ID, AUTO_BRAND_ID, PY, NAME, IMAGE, CREATEDATE, SUPPORTINPUT
+  </sql>
+
+  <select id="getBrands" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from BRAND
+    where SUPPORTINPUT != '3,'
+    order by PY asc
+  </select>
+
+</mapper>

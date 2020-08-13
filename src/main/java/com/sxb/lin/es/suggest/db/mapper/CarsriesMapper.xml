@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxb.lin.es.suggest.db.dao.CarsriesMapper">
+  <resultMap id="BaseResultMap" type="com.sxb.lin.es.suggest.db.entity.Carsries">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="FACTORY_NAME" jdbcType="VARCHAR" property="factoryName" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="AUTO_SERIES_ID" jdbcType="INTEGER" property="autoSeriesId" />
+    <result column="AUTO_BRAND_ID" jdbcType="INTEGER" property="autoBrandId" />
+    <result column="BRAND_ID" jdbcType="INTEGER" property="brandId" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="LEVEL_NAME" jdbcType="VARCHAR" property="levelName" />
+    <result column="MODE_TYPE" jdbcType="INTEGER" property="modeType" />
+  </resultMap>
+
+
+  <select id="getAllForIndex" resultType="map">
+    select
+      cs.ID id,
+      b.NAME brand,
+      cs.FACTORY_NAME factoryName,
+      cs.NAME series,
+      cs.MODE_TYPE modeType
+    from BRAND b
+    INNER JOIN CARSRIES cs on b.ID = cs.BRAND_ID
+    where cs.MODE_TYPE != 3
+    ORDER BY b.ID
+  </select>
+
+</mapper>
