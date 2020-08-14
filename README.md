@@ -1,6 +1,9 @@
 基于elasticsearch的车信息联想、车型术语解析、品牌识别
 
-车型车系数据，存储在内嵌的h2数据库中，数据库文件myh2.mv.db，需要先在es中建立索引
+车型车系数据，存储在内嵌的h2数据库中，数据库文件myh2.mv.db
+
+需要先在es中建立索引，分词器使用ansj_seg，有一些自定义词库和停用词库详询作者
+
 车信息联想、品牌识别建立索引：http://localhost:8080/suggest/indexSuggest.json
 
 车型术语批量解析建立索引：http://localhost:8080/batchParse/indexParse.json
